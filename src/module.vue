@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {ref, computed} from "vue";
-import {useApi} from "@directus/extensions-sdk";
+import { ref, computed } from "vue";
+import { useApi } from "@directus/extensions-sdk";
 import { useI18n } from 'vue-i18n';
 
 type Role = {

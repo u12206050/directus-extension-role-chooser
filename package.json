@@ -10,14 +10,15 @@
 		"type": "module",
 		"path": "dist/index.js",
 		"source": "src/index.ts",
-		"host": "^9.11.1"
+		"host": "^9.20.4"
 	},
 	"scripts": {
-		"dev": "directus-extension build -w --no-minify --sourcemap -o ../../../extensions/modules/role-chooser/index.js",
-		"build": "directus-extension build -o ../../../extensions/modules/role-chooser/index.js"
+		"dev": "directus-extension build -w --no-minify --sourcemap",
+		"build": "directus-extension build"
 	},
 	"devDependencies": {
-		"@directus/extensions-sdk": "9.11.1",
+		"@directus/extensions-sdk": "9.20.4",
+		"@directus/shared": "^9.20.4",
 		"typescript": "^4.7.2",
 		"vue": "^3.2.33"
 	}
