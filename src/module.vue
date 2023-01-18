@@ -13,7 +13,7 @@ type Role = {
 const roles = ref<Array<Role>>([])
 const can_choose = ref<Array<string>>([])
 const role = ref<string>('')
-const error = ref(null)
+const error = ref<string|null>(null)
 
 const available_roles = computed(() => {
   return can_choose.value ? roles.value.filter(r => can_choose.value.includes(r.id)) : roles.value
@@ -47,8 +47,8 @@ async function selectRole(role: Role) {
     })
 
     location.reload()
-  } catch (err) {
-    error.value = err
+  } catch (err: any) {
+    error.value = err.toString()
   }
 }
 
