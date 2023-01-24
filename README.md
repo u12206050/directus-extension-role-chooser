@@ -49,7 +49,7 @@ Add the following permissions to the specified collections for every role
          _eq: $CURRENT_USER
      validation:
        role:
-         _in: $CURRENT_USER.roles.role
+         _in: $CURRENT_USER.user_roles.role
    ```
  - ```
    - collection: directus_roles
