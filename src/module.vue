@@ -56,6 +56,12 @@ async function selectRole(role: Role) {
 
 <template>
   <private-view title="Choose role" id="role-chooser">
+    <template #title-outer:prepend>
+      <v-button class="header-icon" rounded disabled icon secondary>
+        <v-icon name="security" />
+      </v-button>
+    </template>
+    
     <template #navigation>
       <v-sheet>
         <p>Here you can switch between available roles assigned to you by the admin.</p>
