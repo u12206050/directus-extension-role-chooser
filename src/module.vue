@@ -61,15 +61,14 @@ async function selectRole(role: Role) {
         <v-icon name="security" />
       </v-button>
     </template>
-    
-    <template #navigation>
-      <v-sheet>
-        <p>Here you can switch between available roles assigned to you by the admin.</p>
-        <p>If you do not see a role that you believe you should have, please contact the admin.</p>
-      </v-sheet>
-    </template>
 
     <v-error v-if="error" :error="error" @click="error = null"/>
+
+    <div class="introduction">
+      <p>Here you can switch between available roles assigned to you by the admin.</p>
+      <p>If you do not see a role that you believe you should have, please contact the admin.</p>
+    </div>
+
     <div class="available-roles">
       <v-info v-for="optRole in available_roles"
         :key="optRole.id"
@@ -94,6 +93,10 @@ async function selectRole(role: Role) {
 #role-chooser aside#sidebar,
 #role-chooser .sidebar-overlay {
   display: none !important;
+}
+
+.introduction {
+  margin: 1rem;
 }
 
 .available-roles {
