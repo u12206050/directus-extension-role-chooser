@@ -1,5 +1,5 @@
-import {defineModule} from '@directus/extensions-sdk';
-import {User, Permission} from '@directus/shared/types';
+import { defineModule } from '@directus/extensions-sdk';
+import { Permission, User } from '@directus/types';
 import ModuleComponent from './module.vue';
 
 export default defineModule({
