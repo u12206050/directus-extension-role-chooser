@@ -101,7 +101,7 @@ async function selectRole(role: Role) {
 }
 
 .available-roles>.role {
-  flex: 1 1 30%;
+  flex: 1 1 20%;
   min-width: 300px;
   margin: 1rem;
   padding: var(--input-padding);

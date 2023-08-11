@@ -13,7 +13,7 @@ export default defineModule({
     },
   ],
   preRegisterCheck(user, permissions: Permission[]) {
-    if (user.role.admin_access) return true;
+    if (user.role && user.role.admin_access) return true;
 
     return !!permissions.find(
       permission =>
