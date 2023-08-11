@@ -1,5 +1,5 @@
 import { defineModule } from '@directus/extensions-sdk';
-import { Permission, User } from '@directus/types';
+import { Permission } from '@directus/types';
 import ModuleComponent from './module.vue';
 
 export default defineModule({
@@ -12,7 +12,7 @@ export default defineModule({
       component: ModuleComponent,
     },
   ],
-  preRegisterCheck(user: User, permissions: Permission[]) {
+  preRegisterCheck(user, permissions: Permission[]) {
     if (user.role.admin_access) return true;
 
     return !!permissions.find(

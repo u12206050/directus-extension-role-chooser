@@ -36,7 +36,10 @@ function fetchRoles() {
     params: {
       fields: ['id', 'name', 'icon', 'description']
     }
-  }).then(({ data: { data } }) => roles.value = data as Array<Role>)
+  }).then(({ data: { data } }) => {
+    roles.value = data as Array<Role>
+    roles.value.sort((a, b) => a.name.localeCompare(b.name))
+  })
 }
 fetchRoles()
 
