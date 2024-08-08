@@ -10,15 +10,15 @@
 		"type": "module",
 		"path": "../../../extensions/modules/role-chooser/index.js",
 		"source": "src/index.ts",
-		"host": "^10.5.3"
+		"host": "^11.0.0"
 	},
 	"scripts": {
 		"dev": "directus-extension build -w --no-minify --sourcemap",
 		"build": "directus-extension build"
 	},
 	"devDependencies": {
-		"@directus/extensions-sdk": "^10.1.9",
-		"typescript": "^4.9.5",
-		"vue": "^3.2.33"
+		"@directus/extensions-sdk": "^12.0.0",
+		"typescript": "^5.4.5",
+		"vue": "^3.4.27"
 	}
 }
