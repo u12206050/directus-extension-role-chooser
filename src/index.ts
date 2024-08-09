@@ -14,7 +14,6 @@ export default defineModule({
 	preRegisterCheck(user, permissions) {
 		if (user.admin_access) return true;
 
-		const { update } = permissions['directus_roles'] || {};
-		return Boolean(update && update.fields && update.fields.includes('role'));
+		return Boolean(permissions.directus_users?.update?.fields?.includes('role'));
 	},
 });
