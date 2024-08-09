@@ -8,7 +8,7 @@
 	],
 	"directus:extension": {
 		"type": "module",
-		"path": "../../../extensions/modules/role-chooser/index.js",
+		"path": "dist/index.js",
 		"source": "src/index.ts",
 		"host": "^11.0.0"
 	},
