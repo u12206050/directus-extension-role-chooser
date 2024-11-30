@@ -59,14 +59,19 @@ async function selectRole(role: Role) {
 
 <template>
   <private-view title="Choose role" id="role-chooser">
-    <template #navigation>
-      <v-sheet>
-        <p>Here you can switch between available roles assigned to you by the admin.</p>
-        <p>If you do not see a role that you believe you should have, please contact the admin.</p>
-      </v-sheet>
+    <template #title-outer:prepend>
+      <v-button class="header-icon" rounded disabled icon secondary>
+        <v-icon name="security" />
+      </v-button>
     </template>
 
     <v-error v-if="error" :error="error" @click="error = null"/>
+
+    <div class="introduction">
+      <p>Here you can switch between available roles assigned to you by the admin.</p>
+      <p>If you do not see a role that you believe you should have, please contact the admin.</p>
+    </div>
+
     <div class="available-roles">
       <v-info v-for="optRole in available_roles"
         :key="optRole.id"
@@ -91,6 +96,10 @@ async function selectRole(role: Role) {
 #role-chooser aside#sidebar,
 #role-chooser .sidebar-overlay {
   display: none !important;
+}
+
+.introduction {
+  margin: 1rem;
 }
 
 .available-roles {
