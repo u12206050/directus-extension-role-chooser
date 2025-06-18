@@ -13,6 +13,10 @@ This module is only the graphical interface to allow users to switch their role.
 
 In order for it to work you need to setup the following (read first then do):
 
+### Install extension
+
+´npm i directus-extension-role-chooser`
+
 
 ### Create required fields
 
@@ -29,6 +33,7 @@ In order for it to work you need to setup the following (read first then do):
 ### Setup required permissions
 
 Add the following permissions to the specified collections for every role
+This is too allow users to actually view the roles they can choose from, and ensure a user can only update their role to one that they have been assigned.
 
  - ```
    - collection: user_roles
