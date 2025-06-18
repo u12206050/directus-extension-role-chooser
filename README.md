@@ -15,7 +15,7 @@ In order for it to work you need to setup the following (read first then do):
 
 ### Install extension
 
-´npm i directus-extension-role-chooser`
+`npm i directus-extension-role-chooser`
 
 
 ### Create required fields
