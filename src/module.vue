@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
 import { useApi } from "@directus/extensions-sdk";
+import { computed, ref } from "vue";
 import { useI18n } from 'vue-i18n';
 
 type Role = {
@@ -10,13 +10,21 @@ type Role = {
   description: string
 }
 
+function getRoleId(role: string | { id?: string } | null | undefined): string | undefined {
+  return typeof role === 'string' ? role : role?.id;
+}
+
 const roles = ref<Array<Role>>([])
 const can_choose = ref<Array<string>>([])
-const role = ref<string>('')
+const currentRoleId = ref<string | undefined>(undefined)
+const switching = ref(false)
+const switchingRoleId = ref<string | null>(null)
 const error = ref<string|null>(null)
 
 const available_roles = computed(() => {
-  return can_choose.value ? roles.value.filter(r => can_choose.value.includes(r.id)) : roles.value
+  return can_choose.value.length
+    ? roles.value.filter(r => can_choose.value.includes(r.id))
+    : []
 })
 
 const api = useApi()
@@ -28,8 +36,10 @@ function fetchRoles() {
       fields: ['role', 'roles.role'],
     },
   }).then(({ data: { data } }) => {
-    role.value = data.role;
-    can_choose.value = data.roles?.map(r => r.role)
+    currentRoleId.value = getRoleId(data.role);
+    can_choose.value = (data.roles ?? [])
+      .map((r: { role: string | { id?: string } }) => getRoleId(r.role))
+      .filter((id: string | undefined): id is string => Boolean(id));
   });
 
   api.get('/roles', {
@@ -44,14 +54,30 @@ function fetchRoles() {
 fetchRoles()
 
 async function selectRole(role: Role) {
+  if (switching.value) return;
+  if (role.id === currentRoleId.value) return;
+
+  switching.value = true;
+  switchingRoleId.value = role.id;
+  error.value = null;
+
   try {
     await api.patch('/users/me', {
       role: role.id,
-    })
+    });
 
-    location.reload()
-  } catch (err: any) {
-    error.value = err.toString()
+    try {
+      await api.post('/auth/refresh', { mode: 'session' });
+    } catch {
+      await api.post('/auth/refresh');
+    }
+
+    window.location.assign('/admin/content');
+  } catch (err: unknown) {
+    const e = err as { toString?: () => string };
+    error.value = e?.toString?.() ?? String(err);
+    switching.value = false;
+    switchingRoleId.value = null;
   }
 }
 
@@ -76,8 +102,11 @@ async function selectRole(role: Role) {
       >
         <p class="role-description">{{ optRole.description }}</p>
         <div class="role--actions">
-          <v-button :disabled="optRole.id === role" @click="selectRole(optRole)">
-            {{ t('Select') }}
+          <v-button
+            :disabled="switching || optRole.id === currentRoleId"
+            @click="selectRole(optRole)"
+          >
+            {{ switchingRoleId === optRole.id ? t('Loading...') : t('Select') }}
           </v-button>
         </div>
       </v-info>

@@ -14,6 +14,11 @@ export default defineModule({
 	preRegisterCheck(user, permissions) {
 		if (user.admin_access) return true;
 
-		return Boolean(permissions.directus_users?.update?.fields?.includes('role'));
+		const update = permissions?.directus_users?.update;
+		if (!update) return false;
+		if (update.access === 'full') return true;
+
+		const fields = update.fields ?? [];
+		return fields.includes('role') || fields.includes('*');
 	},
 });
