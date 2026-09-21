@@ -54,7 +54,7 @@ This is too allow users to actually view the roles they can choose from, and ens
          _eq: $CURRENT_USER
      validation:
        role:
-         _in: $CURRENT_USER.roles.role
+         _in: $CURRENT_USER.user_roles.role
    ```
  - ```
    - collection: directus_roles
